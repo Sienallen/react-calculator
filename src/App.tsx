@@ -6,18 +6,61 @@ import './App.css';
 function App() {
   const [output, setOutput] = useState('0');
   const [temp, setTemp] = useState('0');
+  const [operator, setOperator] = useState('');
+  const [solved, setSolved] = useState(false);
 
+  // changes output that displays when pressing buttons 0-9
   const clickHandler = (text: string) => {
     setOutput(text);
   };
 
+  //adds 0-9 to output string that displays
   const combineText = (text: string) => {
-    setOutput(output !== '0' ? output + text : text);
+    console.log(operator);
+    if (false) {
+      setOutput(text);
+    } else {
+      setOutput(output !== '0' ? output + text : text);
+    }
   };
 
-  const moveString = () => {
+  const moveString = (symbol: string) => {
     setTemp(output);
     setOutput('0');
+    setOperator(symbol);
+  };
+
+  const solve = () => {
+    switch (operator) {
+      case '+': {
+        setOutput((parseFloat(output) + parseFloat(temp)).toString());
+        setSolved(true);
+        setOperator('+');
+        break;
+      }
+      case '-': {
+        setOutput((parseFloat(output) - parseFloat(temp)).toString());
+        setSolved(true);
+        setOperator('-');
+        break;
+      }
+      case 'x': {
+        setOutput((parseFloat(output) * parseFloat(temp)).toString());
+        setSolved(true);
+        setOperator('x');
+        break;
+      }
+      case '÷': {
+        setOutput((parseFloat(output) / parseFloat(temp)).toString());
+        setSolved(true);
+        setOperator('÷');
+        break;
+      }
+      case '': {
+        setOperator(operator);
+        setSolved(true);
+      }
+    }
   };
 
   return (
@@ -27,12 +70,18 @@ function App() {
         <TextBox text={output} name="output"></TextBox>
         <div className="btn-grid">
           <Button text={'%'} onClick={clickHandler} />
-          <Button text={'CE'} onClick={() => setOutput('0')} />
+          <Button
+            text={'CE'}
+            onClick={() => {
+              setOutput('0');
+            }}
+          />
           <Button
             text={'C'}
             onClick={() => {
               setOutput('0');
               setTemp('0');
+              setSolved(false);
             }}
           />
           <Button text={'<-'} onClick={() => setOutput(output.slice(0, -1))} />
@@ -66,7 +115,7 @@ function App() {
           <Button text={'+/-'} onClick={clickHandler} />
           <Button text={'0'} onClick={combineText} />
           <Button text={'.'} onClick={clickHandler} />
-          <Button text={'='} onClick={clickHandler} />
+          <Button text={'='} onClick={solve} />
         </div>
       </div>
     </>
