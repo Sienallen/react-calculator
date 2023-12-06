@@ -8,6 +8,7 @@ function App() {
   const [temp, setTemp] = useState('0');
   const [operator, setOperator] = useState('');
   const [solved, setSolved] = useState(false);
+  const [expression, setExpression] = useState('');
 
   // changes output that displays when pressing buttons 0-9
   const clickHandler = (text: string) => {
@@ -17,41 +18,53 @@ function App() {
   //adds 0-9 to output string that displays
   const combineText = (text: string) => {
     console.log(operator);
-    if (false) {
+    if (solved) {
+      setTemp(output);
       setOutput(text);
+      setSolved(false);
+      setExpression(text);
     } else {
       setOutput(output !== '0' ? output + text : text);
+      setExpression(expression + text);
     }
   };
 
   const moveString = (symbol: string) => {
-    setTemp(output);
-    setOutput('0');
-    setOperator(symbol);
+    if (operator === '') {
+      setTemp(output);
+      setOutput('0');
+      setOperator(symbol);
+      setExpression(solved ? output + symbol : expression + symbol);
+    } else {
+      solve();
+      setOperator(symbol);
+      setExpression(expression + symbol);
+    }
   };
 
   const solve = () => {
+    console.log(operator);
     switch (operator) {
       case '+': {
-        setOutput((parseFloat(output) + parseFloat(temp)).toString());
+        setOutput((parseFloat(temp) + parseFloat(output)).toString());
         setSolved(true);
         setOperator('');
         break;
       }
       case '-': {
-        setOutput((parseFloat(output) - parseFloat(temp)).toString());
+        setOutput((parseFloat(temp) - parseFloat(output)).toString());
         setSolved(true);
         setOperator('');
         break;
       }
       case 'x': {
-        setOutput((parseFloat(output) * parseFloat(temp)).toString());
+        setOutput((parseFloat(temp) * parseFloat(output)).toString());
         setSolved(true);
         setOperator('');
         break;
       }
       case '÷': {
-        setOutput((parseFloat(output) / parseFloat(temp)).toString());
+        setOutput((parseFloat(temp) / parseFloat(output)).toString());
         setSolved(true);
         setOperator('');
         break;
@@ -59,6 +72,7 @@ function App() {
       case '': {
         setOutput(output);
         setSolved(true);
+        break;
       }
     }
   };
@@ -66,7 +80,7 @@ function App() {
   return (
     <>
       <div>
-        <TextBox text={temp} name="temp"></TextBox>
+        <TextBox text={expression} name="temp"></TextBox>
         <TextBox text={output} name="output"></TextBox>
         <div className="btn-grid">
           <Button text={'%'} onClick={clickHandler} />
@@ -81,7 +95,9 @@ function App() {
             onClick={() => {
               setOutput('0');
               setTemp('0');
+              setExpression('');
               setSolved(false);
+              setOperator('');
             }}
           />
           <Button text={'<-'} onClick={() => setOutput(output.slice(0, -1))} />
@@ -115,7 +131,13 @@ function App() {
           <Button text={'+/-'} onClick={clickHandler} />
           <Button text={'0'} onClick={combineText} />
           <Button text={'.'} onClick={clickHandler} />
-          <Button text={'='} onClick={solve} />
+          <Button
+            text={'='}
+            onClick={() => {
+              solve;
+              setExpression(expression + '=');
+            }}
+          />
         </div>
       </div>
     </>

@@ -13,7 +13,6 @@ const Button = ({ text, onClick }: props) => {
         className={'btn btn-' + text}
         onClick={() => {
           onClick(text);
-          console.log('btn-' + text);
         }}
       >
         {text}
