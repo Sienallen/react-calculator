@@ -35,29 +35,29 @@ function App() {
       case '+': {
         setOutput((parseFloat(output) + parseFloat(temp)).toString());
         setSolved(true);
-        setOperator('+');
+        setOperator('');
         break;
       }
       case '-': {
         setOutput((parseFloat(output) - parseFloat(temp)).toString());
         setSolved(true);
-        setOperator('-');
+        setOperator('');
         break;
       }
       case 'x': {
         setOutput((parseFloat(output) * parseFloat(temp)).toString());
         setSolved(true);
-        setOperator('x');
+        setOperator('');
         break;
       }
       case '÷': {
         setOutput((parseFloat(output) / parseFloat(temp)).toString());
         setSolved(true);
-        setOperator('÷');
+        setOperator('');
         break;
       }
       case '': {
-        setOperator(operator);
+        setOutput(output);
         setSolved(true);
       }
     }
