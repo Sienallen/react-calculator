@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Button from './component/Button';
+import TextBox from './component/TextBox';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [output, setOutput] = useState('');
 
+  const clickHandler = (text: string) => {
+    setOutput(text);
+  };
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <TextBox text={output} name="output"></TextBox>
+        <div className="btn-grid">
+          <Button text={'%'} onClick={clickHandler} />
+          <Button text={'CE'} onClick={clickHandler} />
+          <Button text={'C'} onClick={clickHandler} />
+          <Button text={'<-'} onClick={clickHandler} />
+          <Button text={'⅛'} onClick={clickHandler} />
+          <Button text={'x²'} onClick={clickHandler} />
+          <Button text={'√x'} onClick={clickHandler} />
+          <Button text={'÷'} onClick={clickHandler} />
+          <Button text={'7'} onClick={clickHandler} />
+          <Button text={'8'} onClick={clickHandler} />
+          <Button text={'9'} onClick={clickHandler} />
+          <Button text={'x'} onClick={clickHandler} />
+          <Button text={'4'} onClick={clickHandler} />
+          <Button text={'5'} onClick={clickHandler} />
+          <Button text={'6'} onClick={clickHandler} />
+          <Button text={'-'} onClick={clickHandler} />
+          <Button text={'1'} onClick={clickHandler} />
+          <Button text={'2'} onClick={clickHandler} />
+          <Button text={'3'} onClick={clickHandler} />
+          <Button text={'+'} onClick={clickHandler} />
+          <Button text={'+/-'} onClick={clickHandler} />
+          <Button text={'0'} onClick={clickHandler} />
+          <Button text={'.'} onClick={clickHandler} />
+          <Button text={'='} onClick={clickHandler} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
