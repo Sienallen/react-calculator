@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from './component/Button';
 import TextBox from './component/TextBox';
 import './App.css';
@@ -10,6 +10,15 @@ function App() {
   const [reset, setReset] = useState(false);
   const [expression, setExpression] = useState('');
 
+  /* useEffect(() => {
+    console.log(expression);
+    if (operator === '') {
+      setExpression(output);
+    } else if (operator != '') {
+      setExpression(expression + operator);
+    }
+  }, []); */
+
   // changes output that displays when pressing buttons 0-9
   const clickHandler = (text: string) => {
     setOutput(text);
@@ -19,6 +28,7 @@ function App() {
     if (output.charAt(output.length - 1) !== text) {
       setOutput(output + text);
       setReset(false);
+      console.log('period: ' + reset);
     }
   };
 
@@ -29,71 +39,68 @@ function App() {
       setTemp(output);
       setOutput(text);
       setReset(false);
-      setExpression(text);
+      console.log('combineText:' + reset);
+      /* setExpression(text); */
     } else {
       setOutput(output !== '0' ? output + text : text);
     }
   };
 
   const moveString = (symbol: string) => {
-    console.log('the operator ' + operator);
     if (operator === '') {
       setTemp(output);
       setOutput('0');
       setOperator(symbol);
-      console.log('output is' + output);
-      console.log('solved is' + reset);
       setExpression(output + symbol);
       setReset(false);
+      console.log('moveString:' + reset);
     } else {
-      solve();
+      console.log('going to solve');
+      /* solve(); */
+      setExpression(solve() + symbol);
       setOperator(symbol);
     }
   };
 
   const solve = () => {
-    console.log(operator);
-    console.log(
-      'expression is' + expression.substring(expression.length - output.length)
-    );
-
     setExpression(
       output != expression.substring(expression.length - output.length)
         ? expression + output + '='
         : expression + '='
     );
-
+    let tempOutput: string = '';
     switch (operator) {
       case '+': {
+        tempOutput = (parseFloat(temp) + parseFloat(output)).toString();
         setOutput((parseFloat(temp) + parseFloat(output)).toString());
-        setReset(true);
-        setOperator('');
         break;
       }
       case '-': {
+        tempOutput = (parseFloat(temp) - parseFloat(output)).toString();
         setOutput((parseFloat(temp) - parseFloat(output)).toString());
-        setReset(true);
         setOperator('');
         break;
       }
       case 'x': {
+        tempOutput = (parseFloat(temp) * parseFloat(output)).toString();
         setOutput((parseFloat(temp) * parseFloat(output)).toString());
-        setReset(true);
-        setOperator('');
         break;
       }
       case '÷': {
+        tempOutput = (parseFloat(temp) / parseFloat(output)).toString();
         setOutput((parseFloat(temp) / parseFloat(output)).toString());
-        setReset(true);
-        setOperator('');
         break;
       }
       case '': {
+        tempOutput = output;
         setOutput(output);
-        setReset(true);
         break;
       }
     }
+    setReset(true);
+    console.log('solve: ' + reset);
+    setOperator('');
+    return tempOutput;
   };
 
   return (
@@ -119,6 +126,7 @@ function App() {
               setTemp('0');
               setExpression('');
               setReset(false);
+              console.log('C: ' + reset);
               setOperator('');
             }}
           />
