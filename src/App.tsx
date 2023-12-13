@@ -57,6 +57,15 @@ function App() {
     setHistory([newHistory, ...history]);
   };
 
+  const revertHistory = (text: string) => {
+    let splitted = text.split(' ');
+    setTemp(splitted[2]);
+    setOutput(splitted[4]);
+    setReset(true);
+    setExpression(text.substring(0, text.length - splitted[4].length));
+    console.log(splitted);
+  };
+
   const solve = () => {
     let newHistory = expression + ' ' + output + ' = ';
     setExpression(
@@ -64,6 +73,7 @@ function App() {
         ? newHistory
         : expression + ' ='
     );
+
     let tempOutput: string = '';
     switch (operator) {
       case '+': {
@@ -173,14 +183,7 @@ function App() {
           <div className="historyBox">
             <h2>History</h2>
             {history.map((data) => {
-              return (
-                <Button
-                  text={data}
-                  onClick={() => {
-                    console.log(data);
-                  }}
-                />
-              );
+              return <Button text={data} onClick={revertHistory} />;
             })}
           </div>
         }
