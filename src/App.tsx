@@ -49,7 +49,6 @@ function App() {
       setExpression(solved + ' ' + symbol);
       setOperator(symbol);
       setTemp(solved);
-      setOutput(solved);
     }
   };
 
@@ -98,15 +97,17 @@ function App() {
         break;
       }
     }
-    newHistory = newHistory + output;
+    newHistory = newHistory + tempOutput;
     setReset(true);
     setOperator('');
+    setOutput(tempOutput);
     addHistory(newHistory);
     return tempOutput;
   };
 
   return (
     <>
+      <h1 className="title">Calculator</h1>
       <div className="flexBox">
         <div className="calculator">
           <TextBox text={expression} name="temp"></TextBox>

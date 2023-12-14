@@ -1,6 +1,10 @@
+.title{
+  margin-left: 10px;
+}
+
 .btn-grid{
   display: grid;
- height: 80%;
+  height: 90%;
   width: 100%;
   gap: 5px;
   grid-template-columns: repeat(4, 1fr);
@@ -18,7 +22,7 @@
 /*   align-items: center;
   justify-content: center; */
  /*  background-color: aqua; */
-  height: 100vh;
+  height: 90vh;
   width: 100%;
 }
 
@@ -38,3 +42,4 @@
 .historyBox button:hover{
   background-color: #1a1a1a;
 }
+
