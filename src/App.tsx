@@ -113,7 +113,13 @@ function App() {
           <TextBox text={expression} name="temp"></TextBox>
           <TextBox text={output} name="output"></TextBox>
           <div className="btn-grid">
-            <Button text={'%'} onClick={clickHandler} />
+            <Button
+              text={'%'}
+              onClick={() => {
+                setOutput((parseFloat(output) / 100).toString());
+                setReset(true);
+              }}
+            />
             <Button
               text={'CE'}
               onClick={() => {
@@ -139,19 +145,24 @@ function App() {
             />
             <Button
               text={'1/x'}
-              onClick={() => setOutput((1 / parseFloat(output)).toString())}
+              onClick={() => {
+                setOutput((1 / parseFloat(output)).toString());
+                setReset(true);
+              }}
             />
             <Button
               text={'x²'}
-              onClick={() =>
-                setOutput(Math.pow(parseFloat(output), 2).toString())
-              }
+              onClick={() => {
+                setOutput(Math.pow(parseFloat(output), 2).toString());
+                setReset(true);
+              }}
             />
             <Button
               text={'√x'}
-              onClick={() =>
-                setOutput(Math.sqrt(parseFloat(output)).toString())
-              }
+              onClick={() => {
+                setOutput(Math.sqrt(parseFloat(output)).toString());
+                setReset(true);
+              }}
             />
             <Button text={'÷'} onClick={moveString} />
             <Button text={'7'} onClick={combineText} />
