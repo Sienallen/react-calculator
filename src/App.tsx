@@ -13,11 +13,6 @@ function App() {
   const [expression, setExpression] = useState('');
   const [history, setHistory] = useState<string[]>([]);
 
-  // changes output that displays when pressing buttons 0-9
-  const clickHandler = (text: string) => {
-    setOutput(text);
-  };
-
   const period = (text: string) => {
     if (output.charAt(output.length - 1) !== text) {
       setOutput(output + text);
