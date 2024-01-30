@@ -3,8 +3,6 @@ import Button from './component/Button';
 import TextBox from './component/TextBox';
 import './App.css';
 
-//https://www.youtube.com/watch?v=RZ5wKYbOM_I
-
 function App() {
   const [output, setOutput] = useState('0');
   const [temp, setTemp] = useState('0');
